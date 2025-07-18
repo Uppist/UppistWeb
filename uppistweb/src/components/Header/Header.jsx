@@ -10,7 +10,7 @@ function Header() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const navItems = [
-    { id: 'home', label: 'Home' },
+    { id: 'homes', label: 'Home' },
     { id: 'about', label: 'About Us' },
     { id: 'services', label: 'Services' },
     { id: 'blogs', label: 'Blogs' },
