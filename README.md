@@ -10,4 +10,8 @@ The Uppist Website is a modern, responsive web application built using React and
 ## Features
 - Responsive navigation bar with logo and menu items (Home, Features, Benefits, FAQ).
 - Mobile-friendly design with a hamburger menu.
+<<<<<<< HEAD
 - Modular component structure with separate JSX and CSS files for each section.
+=======
+- Modular component structure with separate JSX and CSS files for each section.
+>>>>>>> 1c3cb99a9992a27c1b4528db5ea93158583ce134
