@@ -1,17 +1,30 @@
 /** @format */
-
 import { useState } from 'react';
 import styles from './Header.module.css';
-import logo from '../../assets/uppist.svg'; // Updated path to assets folder
-import { FaMinus } from 'react-icons/fa'; // Import a horizontal line icon for underline
+import logo from '../../assets/uppist.svg';
+import { FaMinus } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 
 function Header() {
-  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('home'); // Default to 'home'
+  const [activeItem, setActiveItem] = useState('home');
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
-  const handleNavClick = (item) => {
-    setActiveItem(item);
-    setIsServicesDropdownOpen(false); // Ignore dropdown for now
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About Us' },
+    { id: 'services', label: 'Services' },
+    { id: 'blogs', label: 'Blogs' },
+    { id: 'case-studies', label: 'Case studies' },
+    { id: 'contact', label: 'Contact Us' },
+  ];
+
+  const handleItemClick = (id) => {
+    setActiveItem(id);
+    if (id === 'services') {
+      setIsServicesOpen((prev) => !prev);
+    } else {
+      setIsServicesOpen(false);
+    }
   };
 
   return (
@@ -20,73 +33,27 @@ function Header() {
         <img src={logo} alt="Uppist Logo" className={styles.logoImg} />
       </div>
       <div className={styles.navLinks}>
-        <a
-          href="#home"
-          className={styles.navItem}
-          onClick={() => handleNavClick('home')}
-        >
-          Home
-          {activeItem === 'home' && (
-            <span className={styles.underline}>
-              <FaMinus />
-            </span>
-          )}
-        </a>
-        <a
-          href="#about"
-          className={styles.navItem}
-          onClick={() => handleNavClick('about')}
-        >
-          About Us
-          {activeItem === 'about' && (
-            <span className={styles.underline}>
-              <FaMinus />
-            </span>
-          )}
-        </a>
-        <a
-          href="#services"
-          className={styles.navItem}
-          onClick={() => handleNavClick('services')}
-        >
-          Services
-        </a>
-        <a
-          href="#blogs"
-          className={styles.navItem}
-          onClick={() => handleNavClick('blogs')}
-        >
-          Blogs
-          {activeItem === 'blogs' && (
-            <span className={styles.underline}>
-              <FaMinus />
-            </span>
-          )}
-        </a>
-        <a
-          href="#case-studies"
-          className={styles.navItem}
-          onClick={() => handleNavClick('case-studies')}
-        >
-          Case studies
-          {activeItem === 'case-studies' && (
-            <span className={styles.underline}>
-              <FaMinus />
-            </span>
-          )}
-        </a>
-        <a
-          href="#contact"
-          className={styles.navItem}
-          onClick={() => handleNavClick('contact')}
-        >
-          Contact Us
-          {activeItem === 'contact' && (
-            <span className={styles.underline}>
-              <FaMinus />
-            </span>
-          )}
-        </a>
+        {navItems.map(({ id, label }) => (
+          <div
+            key={id}
+            onClick={() => handleItemClick(id)}
+            className={`${styles.navItem} ${activeItem === id ? styles.active : ''}`}
+          >
+            <div className={styles.navItemContent}>
+              <span>{label}</span>
+              {id === 'services' && (
+                <FaChevronDown className={styles.dropdownIcon} />
+              )}
+            </div>
+            {activeItem === id && <span className={styles.underline}><FaMinus /></span>}
+            {id === 'services' && isServicesOpen && (
+              <div className={styles.dropdownMenu}>
+                <div className={styles.dropdownItem}>Creative & Digital Marketing</div>
+                <div className={styles.dropdownItem}>Technology Solutions</div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
       <a href="#consultation" className={styles.consultationButton}>
         BOOK A FREE CONSULTATION
@@ -95,4 +62,4 @@ function Header() {
   );
 }
 
-export default Header; // Ensure this line is present
+export default Header;
